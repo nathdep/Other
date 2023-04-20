@@ -1,0 +1,1055 @@
+Mplus VERSION 8.8
+MUTHEN & MUTHEN
+04/11/2023   3:43 AM
+
+INPUT INSTRUCTIONS
+
+
+    DATA: FILE = mplus_df_final.csv;
+
+        VARIABLE:       NAMES = herit opic1-opic3 intr1-intr3 percep1-percep3
+                                news1-news3 tv1-tv3 soc1-soc3 emails1-emails3
+                                books1-books3 female highed fren rus chin;
+                        USEVARIABLES = opic1-opic3 intr1-intr3 percep1-percep3;
+
+                        CATEGORICAL = opic1-opic3 intr1-intr3 percep1-percep3;
+
+
+                        MISSING = ALL(-9999);
+
+        ANALYSIS: ESTIMATOR = WLSMV; PARAMETERIZATION = THETA;
+                  COVERAGE = 0.034; MODEL = NOCOVARIANCES;
+                  SAVEDATA: DIFFTEST = diffy.dat;
+
+
+
+        OUTPUT: STDYX; TECH4; MODINDICES(ALL);
+
+
+
+        MODEL:
+
+          opicint BY opic1-opic3@1;
+          opicslp BY opic1@0 opic2* opic3@1;
+          opicint* opicslp@0;
+          [opicint@0 opicslp*];
+
+          [opic1$1-opic3$1] (othr1);
+          [opic1$2-opic3$2] (othr2);
+          [opic1$3-opic3$3] (othr3);
+          [opic1$4-opic3$4] (othr4);
+
+
+          intrint BY intr1-intr3@1;
+          intrslp BY intr1@0 intr2@1 intr3*;
+          intrint* intrslp@0;
+          [intrint@0 intrslp*];
+
+          [intr1$1-intr3$1] (ithr1);
+          [intr1$2-intr3$2] (ithr2);
+          [intr1$3-intr3$3] (ithr3);
+          [intr1$4-intr3$4] (ithr4);
+          [intr1$5-intr3$5] (ithr5);
+
+           percepint BY percep1-percep3@1;
+          percepslp BY percep1@0 percep2@1 percep3*;
+          percepint* percepslp@0;
+          [percepint@0 percepslp*];
+
+
+
+          [percep1$1-percep3$1] (pthr1);
+          [percep1$2-percep3$2] (pthr2);
+          [percep1$3-percep3$3] (pthr3);
+          [percep1$4-percep3$4] (pthr4);
+          [percep1$5-percep3$5] (pthr5);
+
+          intrint WITH opicint percepint;
+          opicint WITH percepint;
+
+
+
+          intr1-intr3 PWITH opic1-opic3 ;
+          intr1-intr3 PWITH percep1-percep3 ;
+          opic1-opic3 PWITH percep1-percep3 ;
+
+
+
+
+
+
+INPUT READING TERMINATED NORMALLY
+
+
+
+
+SUMMARY OF ANALYSIS
+
+Number of groups                                                 1
+Number of observations                                        1922
+
+Number of dependent variables                                    9
+Number of independent variables                                  0
+Number of continuous latent variables                            6
+
+Observed dependent variables
+
+  Binary and ordered categorical (ordinal)
+   OPIC1       OPIC2       OPIC3       INTR1       INTR2       INTR3
+   PERCEP1     PERCEP2     PERCEP3
+
+Continuous latent variables
+   OPICINT     OPICSLP     INTRINT     INTRSLP     PERCEPIN    PERCEPSL
+
+
+Estimator                                                    WLSMV
+Maximum number of iterations                                  1000
+Convergence criterion                                    0.500D-04
+Maximum number of steepest descent iterations                   20
+Maximum number of iterations for H1                           2000
+Convergence criterion for H1                             0.100D-03
+Parameterization                                             THETA
+Link                                                        PROBIT
+
+Input data file(s)
+  mplus_df_final.csv
+
+Input data format  FREE
+
+
+SUMMARY OF DATA
+
+     Number of missing data patterns            26
+
+
+COVARIANCE COVERAGE OF DATA
+
+Minimum covariance coverage value   0.034
+
+
+     PROPORTION OF DATA PRESENT
+
+
+           Covariance Coverage
+              OPIC1         OPIC2         OPIC3         INTR1         INTR2
+              ________      ________      ________      ________      ________
+ OPIC1          0.415
+ OPIC2          0.036         0.336
+ OPIC3          0.078         0.180         0.517
+ INTR1          0.392         0.036         0.075         0.392
+ INTR2          0.035         0.328         0.174         0.035         0.328
+ INTR3          0.074         0.174         0.492         0.072         0.170
+ PERCEP1        0.399         0.036         0.076         0.392         0.035
+ PERCEP2        0.036         0.328         0.175         0.035         0.328
+ PERCEP3        0.075         0.176         0.498         0.072         0.171
+
+
+           Covariance Coverage
+              INTR3         PERCEP1       PERCEP2       PERCEP3
+              ________      ________      ________      ________
+ INTR3          0.492
+ PERCEP1        0.073         0.399
+ PERCEP2        0.170         0.036         0.328
+ PERCEP3        0.492         0.073         0.172         0.498
+
+
+UNIVARIATE PROPORTIONS AND COUNTS FOR CATEGORICAL VARIABLES
+
+    OPIC1
+      Category 1    0.117           93.000
+      Category 2    0.382          305.000
+      Category 3    0.358          286.000
+      Category 4    0.117           93.000
+      Category 5    0.026           21.000
+    OPIC2
+      Category 1    0.057           37.000
+      Category 2    0.269          174.000
+      Category 3    0.381          246.000
+      Category 4    0.218          141.000
+      Category 5    0.074           48.000
+    OPIC3
+      Category 1    0.015           15.000
+      Category 2    0.095           94.000
+      Category 3    0.256          254.000
+      Category 4    0.366          363.000
+      Category 5    0.269          267.000
+    INTR1
+      Category 1    0.015           11.000
+      Category 2    0.049           37.000
+      Category 3    0.134          101.000
+      Category 4    0.185          139.000
+      Category 5    0.316          238.000
+      Category 6    0.301          227.000
+    INTR2
+      Category 1    0.014            9.000
+      Category 2    0.048           30.000
+      Category 3    0.079           50.000
+      Category 4    0.119           75.000
+      Category 5    0.303          191.000
+      Category 6    0.437          276.000
+    INTR3
+      Category 1    0.023           22.000
+      Category 2    0.076           72.000
+      Category 3    0.092           87.000
+      Category 4    0.179          169.000
+      Category 5    0.279          264.000
+      Category 6    0.351          332.000
+    PERCEP1
+      Category 1    0.010            8.000
+      Category 2    0.023           18.000
+      Category 3    0.043           33.000
+      Category 4    0.094           72.000
+      Category 5    0.195          149.000
+      Category 6    0.634          486.000
+    PERCEP2
+      Category 1    0.003            2.000
+      Category 2    0.016           10.000
+      Category 3    0.030           19.000
+      Category 4    0.055           35.000
+      Category 5    0.171          108.000
+      Category 6    0.724          457.000
+    PERCEP3
+      Category 1    0.017           16.000
+      Category 2    0.023           22.000
+      Category 3    0.033           32.000
+      Category 4    0.081           78.000
+      Category 5    0.169          162.000
+      Category 6    0.676          648.000
+
+
+
+THE MODEL ESTIMATION TERMINATED NORMALLY
+
+
+
+MODEL FIT INFORMATION
+
+Number of Free Parameters                       35
+
+Chi-Square Test of Model Fit
+
+          Value                             68.922*
+          Degrees of Freedom                    43
+          P-Value                           0.0073
+
+*   The chi-square value for MLM, MLMV, MLR, ULSMV, WLSM and WLSMV cannot be used
+    for chi-square difference testing in the regular way.  MLM, MLR and WLSM
+    chi-square difference testing is described on the Mplus website.  MLMV, WLSMV,
+    and ULSMV difference testing is done using the DIFFTEST option.
+
+RMSEA (Root Mean Square Error Of Approximation)
+
+          Estimate                           0.018
+          90 Percent C.I.                    0.009  0.025
+          Probability RMSEA <= .05           1.000
+
+CFI/TLI
+
+          CFI                                0.993
+          TLI                                0.994
+
+Chi-Square Test of Model Fit for the Baseline Model
+
+          Value                           3523.376
+          Degrees of Freedom                    36
+          P-Value                           0.0000
+
+SRMR (Standardized Root Mean Square Residual)
+
+          Value                              0.039
+
+Optimum Function Value for Weighted Least-Squares Estimator
+
+          Value                     0.14677979D-01
+
+
+
+MODEL RESULTS
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+ OPICINT  BY
+    OPIC1              1.000      0.000    999.000    999.000
+    OPIC2              1.000      0.000    999.000    999.000
+    OPIC3              1.000      0.000    999.000    999.000
+
+ OPICSLP  BY
+    OPIC1              0.000      0.000    999.000    999.000
+    OPIC2              0.355      0.036      9.886      0.000
+    OPIC3              1.000      0.000    999.000    999.000
+
+ INTRINT  BY
+    INTR1              1.000      0.000    999.000    999.000
+    INTR2              1.000      0.000    999.000    999.000
+    INTR3              1.000      0.000    999.000    999.000
+
+ INTRSLP  BY
+    INTR1              0.000      0.000    999.000    999.000
+    INTR2              1.000      0.000    999.000    999.000
+    INTR3              0.046      0.185      0.249      0.803
+
+ PERCEPIN BY
+    PERCEP1            1.000      0.000    999.000    999.000
+    PERCEP2            1.000      0.000    999.000    999.000
+    PERCEP3            1.000      0.000    999.000    999.000
+
+ PERCEPSL BY
+    PERCEP1            0.000      0.000    999.000    999.000
+    PERCEP2            1.000      0.000    999.000    999.000
+    PERCEP3            0.183      0.202      0.906      0.365
+
+ INTRINT  WITH
+    OPICINT            0.569      0.129      4.410      0.000
+    PERCEPINT          1.549      0.198      7.835      0.000
+
+ OPICINT  WITH
+    PERCEPINT          0.703      0.152      4.634      0.000
+
+ INTR1    WITH
+    OPIC1             -0.017      0.144     -0.121      0.904
+    PERCEP1            0.297      0.110      2.703      0.007
+
+ INTR2    WITH
+    OPIC2              0.136      0.118      1.149      0.251
+    PERCEP2            0.452      0.094      4.835      0.000
+
+ INTR3    WITH
+    OPIC3              0.469      0.116      4.054      0.000
+    PERCEP3            0.611      0.080      7.659      0.000
+
+ OPIC1    WITH
+    PERCEP1           -0.111      0.173     -0.641      0.522
+
+ OPIC2    WITH
+    PERCEP2            0.052      0.146      0.359      0.719
+
+ OPIC3    WITH
+    PERCEP3            0.235      0.119      1.971      0.049
+
+ Means
+    OPICINT            0.000      0.000    999.000    999.000
+    OPICSLP            2.175      0.108     20.233      0.000
+    INTRINT            0.000      0.000    999.000    999.000
+    INTRSLP            0.448      0.100      4.468      0.000
+    PERCEPINT          0.000      0.000    999.000    999.000
+    PERCEPSLP          0.459      0.121      3.785      0.000
+
+ Thresholds
+    OPIC1$1           -1.905      0.107    -17.885      0.000
+    OPIC1$2            0.025      0.070      0.361      0.718
+    OPIC1$3            1.679      0.092     18.210      0.000
+    OPIC1$4            3.235      0.137     23.659      0.000
+    OPIC2$1           -1.905      0.107    -17.885      0.000
+    OPIC2$2            0.025      0.070      0.361      0.718
+    OPIC2$3            1.679      0.092     18.210      0.000
+    OPIC2$4            3.235      0.137     23.659      0.000
+    OPIC3$1           -1.905      0.107    -17.885      0.000
+    OPIC3$2            0.025      0.070      0.361      0.718
+    OPIC3$3            1.679      0.092     18.210      0.000
+    OPIC3$4            3.235      0.137     23.659      0.000
+    INTR1$1           -3.432      0.159    -21.606      0.000
+    INTR1$2           -2.284      0.109    -21.046      0.000
+    INTR1$3           -1.434      0.088    -16.312      0.000
+    INTR1$4           -0.556      0.074     -7.514      0.000
+    INTR1$5            0.749      0.074     10.144      0.000
+    INTR2$1           -3.432      0.159    -21.606      0.000
+    INTR2$2           -2.284      0.109    -21.046      0.000
+    INTR2$3           -1.434      0.088    -16.312      0.000
+    INTR2$4           -0.556      0.074     -7.514      0.000
+    INTR2$5            0.749      0.074     10.144      0.000
+    INTR3$1           -3.432      0.159    -21.606      0.000
+    INTR3$2           -2.284      0.109    -21.046      0.000
+    INTR3$3           -1.434      0.088    -16.312      0.000
+    INTR3$4           -0.556      0.074     -7.514      0.000
+    INTR3$5            0.749      0.074     10.144      0.000
+    PERCEP1$1         -3.858      0.226    -17.058      0.000
+    PERCEP1$2         -3.106      0.183    -16.943      0.000
+    PERCEP1$3         -2.478      0.154    -16.064      0.000
+    PERCEP1$4         -1.702      0.123    -13.892      0.000
+    PERCEP1$5         -0.648      0.091     -7.110      0.000
+    PERCEP2$1         -3.858      0.226    -17.058      0.000
+    PERCEP2$2         -3.106      0.183    -16.943      0.000
+    PERCEP2$3         -2.478      0.154    -16.064      0.000
+    PERCEP2$4         -1.702      0.123    -13.892      0.000
+    PERCEP2$5         -0.648      0.091     -7.110      0.000
+    PERCEP3$1         -3.858      0.226    -17.058      0.000
+    PERCEP3$2         -3.106      0.183    -16.943      0.000
+    PERCEP3$3         -2.478      0.154    -16.064      0.000
+    PERCEP3$4         -1.702      0.123    -13.892      0.000
+    PERCEP3$5         -0.648      0.091     -7.110      0.000
+
+ Variances
+    OPICINT            1.895      0.221      8.591      0.000
+    OPICSLP            0.000      0.000    999.000    999.000
+    INTRINT            1.879      0.216      8.697      0.000
+    INTRSLP            0.000      0.000    999.000    999.000
+    PERCEPINT          2.089      0.322      6.494      0.000
+    PERCEPSLP          0.000      0.000    999.000    999.000
+
+
+QUALITY OF NUMERICAL RESULTS
+
+     Condition Number for the Information Matrix              0.356E-02
+       (ratio of smallest to largest eigenvalue)
+
+
+STANDARDIZED MODEL RESULTS
+
+
+STDYX Standardization
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+ OPICINT  BY
+    OPIC1              0.809      0.016     49.748      0.000
+    OPIC2              0.809      0.016     49.748      0.000
+    OPIC3              0.809      0.016     49.748      0.000
+
+ OPICSLP  BY
+    OPIC1            999.000    999.000    999.000    999.000
+    OPIC2            999.000    999.000    999.000    999.000
+    OPIC3            999.000    999.000    999.000    999.000
+
+ INTRINT  BY
+    INTR1              0.808      0.016     50.072      0.000
+    INTR2              0.808      0.016     50.072      0.000
+    INTR3              0.808      0.016     50.072      0.000
+
+ INTRSLP  BY
+    INTR1            999.000    999.000    999.000    999.000
+    INTR2            999.000    999.000    999.000    999.000
+    INTR3            999.000    999.000    999.000    999.000
+
+ PERCEPIN BY
+    PERCEP1            0.822      0.020     40.121      0.000
+    PERCEP2            0.822      0.020     40.121      0.000
+    PERCEP3            0.822      0.020     40.121      0.000
+
+ PERCEPSL BY
+    PERCEP1          999.000    999.000    999.000    999.000
+    PERCEP2          999.000    999.000    999.000    999.000
+    PERCEP3          999.000    999.000    999.000    999.000
+
+ INTRINT  WITH
+    OPICINT            0.301      0.061      4.908      0.000
+    PERCEPINT          0.782      0.037     21.198      0.000
+
+ OPICINT  WITH
+    PERCEPINT          0.353      0.063      5.653      0.000
+
+ INTR1    WITH
+    OPIC1             -0.017      0.144     -0.121      0.904
+    PERCEP1            0.297      0.110      2.703      0.007
+
+ INTR2    WITH
+    OPIC2              0.136      0.118      1.149      0.251
+    PERCEP2            0.452      0.094      4.835      0.000
+
+ INTR3    WITH
+    OPIC3              0.469      0.116      4.054      0.000
+    PERCEP3            0.611      0.080      7.659      0.000
+
+ OPIC1    WITH
+    PERCEP1           -0.111      0.173     -0.641      0.522
+
+ OPIC2    WITH
+    PERCEP2            0.052      0.146      0.359      0.719
+
+ OPIC3    WITH
+    PERCEP3            0.235      0.119      1.971      0.049
+
+ Means
+    OPICINT            0.000      0.000    999.000    999.000
+    OPICSLP          999.000    999.000    999.000    999.000
+    INTRINT            0.000      0.000    999.000    999.000
+    INTRSLP          999.000    999.000    999.000    999.000
+    PERCEPINT          0.000      0.000    999.000    999.000
+    PERCEPSLP        999.000    999.000    999.000    999.000
+
+ Thresholds
+    OPIC1$1           -1.119      0.050    -22.219      0.000
+    OPIC1$2            0.015      0.041      0.361      0.718
+    OPIC1$3            0.987      0.044     22.201      0.000
+    OPIC1$4            1.901      0.052     36.292      0.000
+    OPIC2$1           -1.119      0.050    -22.219      0.000
+    OPIC2$2            0.015      0.041      0.361      0.718
+    OPIC2$3            0.987      0.044     22.201      0.000
+    OPIC2$4            1.901      0.052     36.292      0.000
+    OPIC3$1           -1.119      0.050    -22.219      0.000
+    OPIC3$2            0.015      0.041      0.361      0.718
+    OPIC3$3            0.987      0.044     22.201      0.000
+    OPIC3$4            1.901      0.052     36.292      0.000
+    INTR1$1           -2.023      0.074    -27.481      0.000
+    INTR1$2           -1.346      0.051    -26.520      0.000
+    INTR1$3           -0.845      0.044    -19.174      0.000
+    INTR1$4           -0.328      0.042     -7.843      0.000
+    INTR1$5            0.441      0.043     10.382      0.000
+    INTR2$1           -2.023      0.074    -27.481      0.000
+    INTR2$2           -1.346      0.051    -26.520      0.000
+    INTR2$3           -0.845      0.044    -19.174      0.000
+    INTR2$4           -0.328      0.042     -7.843      0.000
+    INTR2$5            0.441      0.043     10.382      0.000
+    INTR3$1           -2.023      0.074    -27.481      0.000
+    INTR3$2           -1.346      0.051    -26.520      0.000
+    INTR3$3           -0.845      0.044    -19.174      0.000
+    INTR3$4           -0.328      0.042     -7.843      0.000
+    INTR3$5            0.441      0.043     10.382      0.000
+    PERCEP1$1         -2.195      0.088    -24.873      0.000
+    PERCEP1$2         -1.767      0.065    -27.228      0.000
+    PERCEP1$3         -1.410      0.054    -26.073      0.000
+    PERCEP1$4         -0.968      0.048    -20.244      0.000
+    PERCEP1$5         -0.368      0.046     -8.084      0.000
+    PERCEP2$1         -2.195      0.088    -24.873      0.000
+    PERCEP2$2         -1.767      0.065    -27.228      0.000
+    PERCEP2$3         -1.410      0.054    -26.073      0.000
+    PERCEP2$4         -0.968      0.048    -20.244      0.000
+    PERCEP2$5         -0.368      0.046     -8.084      0.000
+    PERCEP3$1         -2.195      0.088    -24.873      0.000
+    PERCEP3$2         -1.767      0.065    -27.228      0.000
+    PERCEP3$3         -1.410      0.054    -26.073      0.000
+    PERCEP3$4         -0.968      0.048    -20.244      0.000
+    PERCEP3$5         -0.368      0.046     -8.084      0.000
+
+ Variances
+    OPICINT            1.000      0.000    999.000    999.000
+    OPICSLP          999.000    999.000    999.000    999.000
+    INTRINT            1.000      0.000    999.000    999.000
+    INTRSLP          999.000    999.000    999.000    999.000
+    PERCEPINT          1.000      0.000    999.000    999.000
+    PERCEPSLP        999.000    999.000    999.000    999.000
+
+
+R-SQUARE
+
+    Observed                                        Two-Tailed     Scale
+    Variable        Estimate       S.E.  Est./S.E.    P-Value     Factors
+
+    OPIC1              0.655      0.026     24.874      0.000      0.588
+    OPIC2              0.655      0.026     24.874      0.000      0.588
+    OPIC3              0.655      0.026     24.874      0.000      0.588
+    INTR1              0.653      0.026     25.036      0.000      0.589
+    INTR2              0.653      0.026     25.036      0.000      0.589
+    INTR3              0.653      0.026     25.036      0.000      0.589
+    PERCEP1            0.676      0.034     20.060      0.000      0.569
+    PERCEP2            0.676      0.034     20.060      0.000      0.569
+    PERCEP3            0.676      0.034     20.060      0.000      0.569
+
+
+MODEL MODIFICATION INDICES
+
+Minimum M.I. value for printing the modification index    10.000
+
+                                   M.I.     E.P.C.  Std E.P.C.  StdYX E.P.C.
+
+ON/BY Statements
+
+OPIC1    ON OPICSLP  /
+OPICSLP  BY OPIC1                999.000     0.000    999.000      999.000
+INTR1    ON OPICINT  /
+OPICINT  BY INTR1                 12.475    -0.377     -0.518       -0.306
+INTR1    ON OPICSLP  /
+OPICSLP  BY INTR1                999.000     0.000    999.000      999.000
+INTR1    ON INTRINT  /
+INTRINT  BY INTR1                 10.411    -0.198     -0.271       -0.160
+INTR3    ON OPICSLP  /
+OPICSLP  BY INTR3                999.000     0.000    999.000      999.000
+PERCEP3  ON OPICSLP  /
+OPICSLP  BY PERCEP3              999.000     0.000    999.000      999.000
+INTRINT  ON INTRINT  /
+INTRINT  BY INTRINT              999.000     0.000      0.000        0.000
+INTRINT  ON PERCEPIN /
+PERCEPIN BY INTRINT              999.000     0.000      0.000        0.000
+
+ON Statements
+
+INTR1    ON OPIC1                 12.142    -0.373     -0.373       -0.374
+INTR1    ON OPIC2                 11.195    -0.308     -0.308       -0.309
+INTR1    ON INTR1                 13.723    -0.158     -0.158       -0.158
+INTR1    ON PERCEP1               11.904    -0.211     -0.211       -0.219
+
+Variances/Residual Variances
+
+OPICSLP                           10.919     0.704    999.000      999.000
+INTR1                             12.000    -0.699     -0.699       -0.243
+
+Means/Intercepts/Thresholds
+
+[ INTR1$2  ]                      10.731    -0.302     -0.302       -0.178
+
+
+TECHNICAL 4 OUTPUT
+
+
+     ESTIMATES DERIVED FROM THE MODEL
+
+
+           ESTIMATED MEANS FOR THE LATENT VARIABLES
+              OPICINT       OPICSLP       INTRINT       INTRSLP       PERCEPIN
+              ________      ________      ________      ________      ________
+                0.000         2.175         0.000         0.448         0.000
+
+
+           ESTIMATED MEANS FOR THE LATENT VARIABLES
+              PERCEPSL      OPIC1         OPIC2         OPIC3         INTR1
+              ________      ________      ________      ________      ________
+                0.459         0.000         0.773         2.175         0.000
+
+
+           ESTIMATED MEANS FOR THE LATENT VARIABLES
+              INTR2         INTR3         PERCEP1       PERCEP2       PERCEP3
+              ________      ________      ________      ________      ________
+                0.448         0.021         0.000         0.459         0.084
+
+
+           ESTIMATED COVARIANCE MATRIX FOR THE LATENT VARIABLES
+              OPICINT       OPICSLP       INTRINT       INTRSLP       PERCEPIN
+              ________      ________      ________      ________      ________
+ OPICINT        1.895
+ OPICSLP        0.000         0.000
+ INTRINT        0.569         0.000         1.879
+ INTRSLP        0.000         0.000         0.000         0.000
+ PERCEPIN       0.703         0.000         1.549         0.000         2.089
+ PERCEPSL       0.000         0.000         0.000         0.000         0.000
+ OPIC1          1.895         0.000         0.569         0.000         0.703
+ OPIC2          1.895         0.000         0.569         0.000         0.703
+ OPIC3          1.895         0.000         0.569         0.000         0.703
+ INTR1          0.569         0.000         1.879         0.000         1.549
+ INTR2          0.569         0.000         1.879         0.000         1.549
+ INTR3          0.569         0.000         1.879         0.000         1.549
+ PERCEP1        0.703         0.000         1.549         0.000         2.089
+ PERCEP2        0.703         0.000         1.549         0.000         2.089
+ PERCEP3        0.703         0.000         1.549         0.000         2.089
+
+
+           ESTIMATED COVARIANCE MATRIX FOR THE LATENT VARIABLES
+              PERCEPSL      OPIC1         OPIC2         OPIC3         INTR1
+              ________      ________      ________      ________      ________
+ PERCEPSL       0.000
+ OPIC1          0.000         2.895
+ OPIC2          0.000         1.895         2.895
+ OPIC3          0.000         1.895         1.895         2.895
+ INTR1          0.000         0.551         0.569         0.569         2.879
+ INTR2          0.000         0.569         0.705         0.569         1.879
+ INTR3          0.000         0.569         0.569         1.038         1.879
+ PERCEP1        0.000         0.592         0.703         0.703         1.846
+ PERCEP2        0.000         0.703         0.756         0.703         1.549
+ PERCEP3        0.000         0.703         0.703         0.938         1.549
+
+
+           ESTIMATED COVARIANCE MATRIX FOR THE LATENT VARIABLES
+              INTR2         INTR3         PERCEP1       PERCEP2       PERCEP3
+              ________      ________      ________      ________      ________
+ INTR2          2.879
+ INTR3          1.879         2.879
+ PERCEP1        1.549         1.549         3.089
+ PERCEP2        2.001         1.549         2.089         3.089
+ PERCEP3        1.549         2.160         2.089         2.089         3.089
+
+
+           ESTIMATED CORRELATION MATRIX FOR THE LATENT VARIABLES
+              OPICINT       OPICSLP       INTRINT       INTRSLP       PERCEPIN
+              ________      ________      ________      ________      ________
+ OPICINT        1.000
+ OPICSLP      999.000       999.000
+ INTRINT        0.301       999.000         1.000
+ INTRSLP      999.000       999.000       999.000       999.000
+ PERCEPIN       0.353       999.000         0.782       999.000         1.000
+ PERCEPSL     999.000       999.000       999.000       999.000       999.000
+ OPIC1          0.809       999.000         0.244       999.000         0.286
+ OPIC2          0.809       999.000         0.244       999.000         0.286
+ OPIC3          0.809       999.000         0.244       999.000         0.286
+ INTR1          0.244       999.000         0.808       999.000         0.632
+ INTR2          0.244       999.000         0.808       999.000         0.632
+ INTR3          0.244       999.000         0.808       999.000         0.632
+ PERCEP1        0.291       999.000         0.643       999.000         0.822
+ PERCEP2        0.291       999.000         0.643       999.000         0.822
+ PERCEP3        0.291       999.000         0.643       999.000         0.822
+
+
+           ESTIMATED CORRELATION MATRIX FOR THE LATENT VARIABLES
+              PERCEPSL      OPIC1         OPIC2         OPIC3         INTR1
+              ________      ________      ________      ________      ________
+ PERCEPSL     999.000
+ OPIC1        999.000         1.000
+ OPIC2        999.000         0.655         1.000
+ OPIC3        999.000         0.655         0.655         1.000
+ INTR1        999.000         0.191         0.197         0.197         1.000
+ INTR2        999.000         0.197         0.244         0.197         0.653
+ INTR3        999.000         0.197         0.197         0.359         0.653
+ PERCEP1      999.000         0.198         0.235         0.235         0.619
+ PERCEP2      999.000         0.235         0.253         0.235         0.519
+ PERCEP3      999.000         0.235         0.235         0.314         0.519
+
+
+           ESTIMATED CORRELATION MATRIX FOR THE LATENT VARIABLES
+              INTR2         INTR3         PERCEP1       PERCEP2       PERCEP3
+              ________      ________      ________      ________      ________
+ INTR2          1.000
+ INTR3          0.653         1.000
+ PERCEP1        0.519         0.519         1.000
+ PERCEP2        0.671         0.519         0.676         1.000
+ PERCEP3        0.519         0.724         0.676         0.676         1.000
+
+
+     ESTIMATES DERIVED FROM THE MODEL
+
+
+           S.E. FOR ESTIMATED MEANS FOR THE LATENT VARIABLES
+              OPICINT       OPICSLP       INTRINT       INTRSLP       PERCEPIN
+              ________      ________      ________      ________      ________
+                0.000         0.108         0.000         0.100         0.000
+
+
+           S.E. FOR ESTIMATED MEANS FOR THE LATENT VARIABLES
+              PERCEPSL      OPIC1         OPIC2         OPIC3         INTR1
+              ________      ________      ________      ________      ________
+                0.121         0.000         0.098         0.108         0.000
+
+
+           S.E. FOR ESTIMATED MEANS FOR THE LATENT VARIABLES
+              INTR2         INTR3         PERCEP1       PERCEP2       PERCEP3
+              ________      ________      ________      ________      ________
+                0.100         0.086         0.000         0.121         0.102
+
+
+           EST./S.E. FOR ESTIMATED MEANS FOR THE LATENT VARIABLES
+              OPICINT       OPICSLP       INTRINT       INTRSLP       PERCEPIN
+              ________      ________      ________      ________      ________
+                0.000        20.233         0.000         4.468         0.000
+
+
+           EST./S.E. FOR ESTIMATED MEANS FOR THE LATENT VARIABLES
+              PERCEPSL      OPIC1         OPIC2         OPIC3         INTR1
+              ________      ________      ________      ________      ________
+                3.785         0.000         7.865        20.233         0.000
+
+
+           EST./S.E. FOR ESTIMATED MEANS FOR THE LATENT VARIABLES
+              INTR2         INTR3         PERCEP1       PERCEP2       PERCEP3
+              ________      ________      ________      ________      ________
+                4.468         0.242         0.000         3.785         0.820
+
+
+           TWO-TAILED P-VALUE FOR ESTIMATED MEANS FOR THE LATENT VARIABLES
+              OPICINT       OPICSLP       INTRINT       INTRSLP       PERCEPIN
+              ________      ________      ________      ________      ________
+                1.000         0.000         1.000         0.000         1.000
+
+
+           TWO-TAILED P-VALUE FOR ESTIMATED MEANS FOR THE LATENT VARIABLES
+              PERCEPSL      OPIC1         OPIC2         OPIC3         INTR1
+              ________      ________      ________      ________      ________
+                0.000         1.000         0.000         0.000         1.000
+
+
+           TWO-TAILED P-VALUE FOR ESTIMATED MEANS FOR THE LATENT VARIABLES
+              INTR2         INTR3         PERCEP1       PERCEP2       PERCEP3
+              ________      ________      ________      ________      ________
+                0.000         0.809         1.000         0.000         0.412
+
+
+           S.E. FOR ESTIMATED COVARIANCE MATRIX FOR THE LATENT VARIABLES
+              OPICINT       OPICSLP       INTRINT       INTRSLP       PERCEPIN
+              ________      ________      ________      ________      ________
+ OPICINT        0.221
+ OPICSLP        0.000         0.000
+ INTRINT        0.129         0.000         0.216
+ INTRSLP        0.000         0.000         0.000         0.000
+ PERCEPIN       0.152         0.000         0.198         0.000         0.322
+ PERCEPSL       0.000         0.000         0.000         0.000         0.000
+ OPIC1          0.221         0.000         0.129         0.000         0.152
+ OPIC2          0.221         0.000         0.129         0.000         0.152
+ OPIC3          0.221         0.000         0.129         0.000         0.152
+ INTR1          0.129         0.000         0.216         0.000         0.198
+ INTR2          0.129         0.000         0.216         0.000         0.198
+ INTR3          0.129         0.000         0.216         0.000         0.198
+ PERCEP1        0.152         0.000         0.198         0.000         0.322
+ PERCEP2        0.152         0.000         0.198         0.000         0.322
+ PERCEP3        0.152         0.000         0.198         0.000         0.322
+
+
+           S.E. FOR ESTIMATED COVARIANCE MATRIX FOR THE LATENT VARIABLES
+              PERCEPSL      OPIC1         OPIC2         OPIC3         INTR1
+              ________      ________      ________      ________      ________
+ PERCEPSL       0.000
+ OPIC1          0.000         0.221
+ OPIC2          0.000         0.221         0.221
+ OPIC3          0.000         0.221         0.221         0.221
+ INTR1          0.000         0.121         0.129         0.129         0.216
+ INTR2          0.000         0.129         0.129         0.129         0.216
+ INTR3          0.000         0.129         0.129         0.115         0.216
+ PERCEP1        0.000         0.146         0.152         0.152         0.162
+ PERCEP2        0.000         0.152         0.168         0.152         0.198
+ PERCEP3        0.000         0.152         0.152         0.129         0.198
+
+
+           S.E. FOR ESTIMATED COVARIANCE MATRIX FOR THE LATENT VARIABLES
+              INTR2         INTR3         PERCEP1       PERCEP2       PERCEP3
+              ________      ________      ________      ________      ________
+ INTR2          0.216
+ INTR3          0.216         0.216
+ PERCEP1        0.198         0.198         0.322
+ PERCEP2        0.183         0.198         0.322         0.322
+ PERCEP3        0.198         0.178         0.322         0.322         0.322
+
+
+           EST./S.E. FOR ESTIMATED COVARIANCE MATRIX FOR THE LATENT VARIABLES
+              OPICINT       OPICSLP       INTRINT       INTRSLP       PERCEPIN
+              ________      ________      ________      ________      ________
+ OPICINT        8.591
+ OPICSLP        0.000         0.000
+ INTRINT        4.410         0.000         8.697
+ INTRSLP        0.000         0.000         0.000         0.000
+ PERCEPIN       4.634         0.000         7.835         0.000         6.494
+ PERCEPSL       0.000         0.000         0.000         0.000         0.000
+ OPIC1          8.591         0.000         4.410         0.000         4.634
+ OPIC2          8.591         0.000         4.410         0.000         4.634
+ OPIC3          8.591         0.000         4.410         0.000         4.634
+ INTR1          4.410         0.000         8.697         0.000         7.835
+ INTR2          4.410         0.000         8.697         0.000         7.835
+ INTR3          4.410         0.000         8.697         0.000         7.835
+ PERCEP1        4.634         0.000         7.835         0.000         6.494
+ PERCEP2        4.634         0.000         7.835         0.000         6.494
+ PERCEP3        4.634         0.000         7.835         0.000         6.494
+
+
+           EST./S.E. FOR ESTIMATED COVARIANCE MATRIX FOR THE LATENT VARIABLES
+              PERCEPSL      OPIC1         OPIC2         OPIC3         INTR1
+              ________      ________      ________      ________      ________
+ PERCEPSL       0.000
+ OPIC1          0.000        13.124
+ OPIC2          0.000         8.591        13.124
+ OPIC3          0.000         8.591         8.591        13.124
+ INTR1          0.000         4.553         4.410         4.410        13.325
+ INTR2          0.000         4.410         5.463         4.410         8.697
+ INTR3          0.000         4.410         4.410         9.061         8.697
+ PERCEP1        0.000         4.049         4.634         4.634        11.431
+ PERCEP2        0.000         4.634         4.505         4.634         7.835
+ PERCEP3        0.000         4.634         4.634         7.247         7.835
+
+
+           EST./S.E. FOR ESTIMATED COVARIANCE MATRIX FOR THE LATENT VARIABLES
+              INTR2         INTR3         PERCEP1       PERCEP2       PERCEP3
+              ________      ________      ________      ________      ________
+ INTR2         13.325
+ INTR3          8.697        13.325
+ PERCEP1        7.835         7.835         9.603
+ PERCEP2       10.945         7.835         6.494         9.603
+ PERCEP3        7.835        12.124         6.494         6.494         9.603
+
+
+           TWO-TAILED P-VALUE FOR ESTIMATED COVARIANCE MATRIX FOR THE LATENT VARIABLES
+              OPICINT       OPICSLP       INTRINT       INTRSLP       PERCEPIN
+              ________      ________      ________      ________      ________
+ OPICINT        0.000
+ OPICSLP        1.000         1.000
+ INTRINT        0.000         1.000         0.000
+ INTRSLP        1.000         1.000         1.000         1.000
+ PERCEPIN       0.000         1.000         0.000         1.000         0.000
+ PERCEPSL       1.000         1.000         1.000         1.000         1.000
+ OPIC1          0.000         1.000         0.000         1.000         0.000
+ OPIC2          0.000         1.000         0.000         1.000         0.000
+ OPIC3          0.000         1.000         0.000         1.000         0.000
+ INTR1          0.000         1.000         0.000         1.000         0.000
+ INTR2          0.000         1.000         0.000         1.000         0.000
+ INTR3          0.000         1.000         0.000         1.000         0.000
+ PERCEP1        0.000         1.000         0.000         1.000         0.000
+ PERCEP2        0.000         1.000         0.000         1.000         0.000
+ PERCEP3        0.000         1.000         0.000         1.000         0.000
+
+
+           TWO-TAILED P-VALUE FOR ESTIMATED COVARIANCE MATRIX FOR THE LATENT VARIABLES
+              PERCEPSL      OPIC1         OPIC2         OPIC3         INTR1
+              ________      ________      ________      ________      ________
+ PERCEPSL       1.000
+ OPIC1          1.000         0.000
+ OPIC2          1.000         0.000         0.000
+ OPIC3          1.000         0.000         0.000         0.000
+ INTR1          1.000         0.000         0.000         0.000         0.000
+ INTR2          1.000         0.000         0.000         0.000         0.000
+ INTR3          1.000         0.000         0.000         0.000         0.000
+ PERCEP1        1.000         0.000         0.000         0.000         0.000
+ PERCEP2        1.000         0.000         0.000         0.000         0.000
+ PERCEP3        1.000         0.000         0.000         0.000         0.000
+
+
+           TWO-TAILED P-VALUE FOR ESTIMATED COVARIANCE MATRIX FOR THE LATENT VARIABLES
+              INTR2         INTR3         PERCEP1       PERCEP2       PERCEP3
+              ________      ________      ________      ________      ________
+ INTR2          0.000
+ INTR3          0.000         0.000
+ PERCEP1        0.000         0.000         0.000
+ PERCEP2        0.000         0.000         0.000         0.000
+ PERCEP3        0.000         0.000         0.000         0.000         0.000
+
+
+           S.E. FOR ESTIMATED CORRELATION MATRIX FOR THE LATENT VARIABLES
+              OPICINT       OPICSLP       INTRINT       INTRSLP       PERCEPIN
+              ________      ________      ________      ________      ________
+ OPICINT        0.000
+ OPICSLP      999.000         0.000
+ INTRINT        0.061       999.000         0.000
+ INTRSLP      999.000       999.000       999.000         0.000
+ PERCEPIN       0.063       999.000         0.037       999.000         0.000
+ PERCEPSL     999.000       999.000       999.000       999.000       999.000
+ OPIC1          0.016       999.000         0.050       999.000         0.051
+ OPIC2          0.016       999.000         0.050       999.000         0.051
+ OPIC3          0.016       999.000         0.050       999.000         0.051
+ INTR1          0.050       999.000         0.016       999.000         0.036
+ INTR2          0.050       999.000         0.016       999.000         0.036
+ INTR3          0.050       999.000         0.016       999.000         0.036
+ PERCEP1        0.053       999.000         0.035       999.000         0.020
+ PERCEP2        0.053       999.000         0.035       999.000         0.020
+ PERCEP3        0.053       999.000         0.035       999.000         0.020
+
+
+           S.E. FOR ESTIMATED CORRELATION MATRIX FOR THE LATENT VARIABLES
+              PERCEPSL      OPIC1         OPIC2         OPIC3         INTR1
+              ________      ________      ________      ________      ________
+ PERCEPSL       0.000
+ OPIC1        999.000         0.000
+ OPIC2        999.000         0.026         0.000
+ OPIC3        999.000         0.026         0.026         0.000
+ INTR1        999.000         0.040         0.041         0.041         0.000
+ INTR2        999.000         0.041         0.041         0.041         0.026
+ INTR3        999.000         0.041         0.041         0.032         0.026
+ PERCEP1      999.000         0.046         0.043         0.043         0.028
+ PERCEP2      999.000         0.043         0.051         0.043         0.034
+ PERCEP3      999.000         0.043         0.043         0.035         0.034
+
+
+           S.E. FOR ESTIMATED CORRELATION MATRIX FOR THE LATENT VARIABLES
+              INTR2         INTR3         PERCEP1       PERCEP2       PERCEP3
+              ________      ________      ________      ________      ________
+ INTR2          0.000
+ INTR3          0.026         0.000
+ PERCEP1        0.034         0.034         0.000
+ PERCEP2        0.028         0.034         0.034         0.000
+ PERCEP3        0.034         0.021         0.034         0.034         0.000
+
+
+           EST./S.E. FOR ESTIMATED CORRELATION MATRIX FOR THE LATENT VARIABLES
+              OPICINT       OPICSLP       INTRINT       INTRSLP       PERCEPIN
+              ________      ________      ________      ________      ________
+ OPICINT      999.000
+ OPICSLP        1.000       999.000
+ INTRINT        4.908         1.000       999.000
+ INTRSLP        1.000         1.000         1.000       999.000
+ PERCEPIN       5.653         1.000        21.198         1.000       999.000
+ PERCEPSL       1.000         1.000         1.000         1.000         1.000
+ OPIC1         49.748         1.000         4.861         1.000         5.602
+ OPIC2         49.748         1.000         4.861         1.000         5.602
+ OPIC3         49.748         1.000         4.861         1.000         5.602
+ INTR1          4.859         1.000        50.072         1.000        17.543
+ INTR2          4.859         1.000        50.072         1.000        17.543
+ INTR3          4.859         1.000        50.072         1.000        17.543
+ PERCEP1        5.468         1.000        18.134         1.000        40.121
+ PERCEP2        5.468         1.000        18.134         1.000        40.121
+ PERCEP3        5.468         1.000        18.134         1.000        40.121
+
+
+           EST./S.E. FOR ESTIMATED CORRELATION MATRIX FOR THE LATENT VARIABLES
+              PERCEPSL      OPIC1         OPIC2         OPIC3         INTR1
+              ________      ________      ________      ________      ________
+ PERCEPSL     999.000
+ OPIC1          1.000       999.000
+ OPIC2          1.000        24.874       999.000
+ OPIC3          1.000        24.874        24.874       999.000
+ INTR1          1.000         4.813         4.808         4.808       999.000
+ INTR2          1.000         4.808         6.014         4.808        25.036
+ INTR3          1.000         4.808         4.808        11.326        25.036
+ PERCEP1        1.000         4.312         5.415         5.415        21.894
+ PERCEP2        1.000         5.415         4.988         5.415        15.182
+ PERCEP3        1.000         5.415         5.415         8.901        15.182
+
+
+           EST./S.E. FOR ESTIMATED CORRELATION MATRIX FOR THE LATENT VARIABLES
+              INTR2         INTR3         PERCEP1       PERCEP2       PERCEP3
+              ________      ________      ________      ________      ________
+ INTR2        999.000
+ INTR3         25.036       999.000
+ PERCEP1       15.182        15.182       999.000
+ PERCEP2       24.278        15.182        20.060       999.000
+ PERCEP3       15.182        33.966        20.060        20.060       999.000
+
+
+           TWO-TAILED P-VALUE FOR ESTIMATED CORRELATION MATRIX FOR THE LATENT VARIABLES
+              OPICINT       OPICSLP       INTRINT       INTRSLP       PERCEPIN
+              ________      ________      ________      ________      ________
+ OPICINT        0.000
+ OPICSLP        0.317         0.000
+ INTRINT        0.000         0.317         0.000
+ INTRSLP        0.317         0.317         0.317         0.000
+ PERCEPIN       0.000         0.317         0.000         0.317         0.000
+ PERCEPSL       0.317         0.317         0.317         0.317         0.317
+ OPIC1          0.000         0.317         0.000         0.317         0.000
+ OPIC2          0.000         0.317         0.000         0.317         0.000
+ OPIC3          0.000         0.317         0.000         0.317         0.000
+ INTR1          0.000         0.317         0.000         0.317         0.000
+ INTR2          0.000         0.317         0.000         0.317         0.000
+ INTR3          0.000         0.317         0.000         0.317         0.000
+ PERCEP1        0.000         0.317         0.000         0.317         0.000
+ PERCEP2        0.000         0.317         0.000         0.317         0.000
+ PERCEP3        0.000         0.317         0.000         0.317         0.000
+
+
+           TWO-TAILED P-VALUE FOR ESTIMATED CORRELATION MATRIX FOR THE LATENT VARIABLES
+              PERCEPSL      OPIC1         OPIC2         OPIC3         INTR1
+              ________      ________      ________      ________      ________
+ PERCEPSL       0.000
+ OPIC1          0.317         0.000
+ OPIC2          0.317         0.000         0.000
+ OPIC3          0.317         0.000         0.000         0.000
+ INTR1          0.317         0.000         0.000         0.000         0.000
+ INTR2          0.317         0.000         0.000         0.000         0.000
+ INTR3          0.317         0.000         0.000         0.000         0.000
+ PERCEP1        0.317         0.000         0.000         0.000         0.000
+ PERCEP2        0.317         0.000         0.000         0.000         0.000
+ PERCEP3        0.317         0.000         0.000         0.000         0.000
+
+
+           TWO-TAILED P-VALUE FOR ESTIMATED CORRELATION MATRIX FOR THE LATENT VARIABLES
+              INTR2         INTR3         PERCEP1       PERCEP2       PERCEP3
+              ________      ________      ________      ________      ________
+ INTR2          0.000
+ INTR3          0.000         0.000
+ PERCEP1        0.000         0.000         0.000
+ PERCEP2        0.000         0.000         0.000         0.000
+ PERCEP3        0.000         0.000         0.000         0.000         0.000
+
+
+SAVEDATA INFORMATION
+
+
+  Difference testing
+
+  Save file
+    diffy.dat
+  Save format      Free
+
+DIAGRAM INFORMATION
+
+  Use View Diagram under the Diagram menu in the Mplus Editor to view the diagram.
+  If running Mplus from the Mplus Diagrammer, the diagram opens automatically.
+
+  Diagram output
+    h:\again3b.dgm
+
+     Beginning Time:  03:43:04
+        Ending Time:  03:45:55
+       Elapsed Time:  00:02:51
+
+
+
+MUTHEN & MUTHEN
+3463 Stoner Ave.
+Los Angeles, CA  90066
+
+Tel: (310) 391-9971
+Fax: (310) 391-8971
+Web: www.StatModel.com
+Support: Support@StatModel.com
+
+Copyright (c) 1998-2022 Muthen & Muthen
