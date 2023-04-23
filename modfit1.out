@@ -1,0 +1,1036 @@
+Mplus VERSION 8.8
+MUTHEN & MUTHEN
+04/23/2023   3:22 AM
+
+INPUT INSTRUCTIONS
+
+     DATA: FILE = mplus_df_final.csv;
+
+            VARIABLE:       NAMES = herit opic1-opic3 intr1-intr3 import1-import3
+                                    news1-news3 tv1-tv3 soc1-soc3 emails1-emails3
+                                    books1-books3 female highed fren rus chin;
+                            USEVARIABLES = opic1-opic3 intr1-intr3 import1-import3;
+
+                            CATEGORICAL = opic1-opic3 intr1-intr3 import1-import3;
+
+
+                            MISSING = ALL(-9999);
+
+            ANALYSIS: ESTIMATOR = WLSMV; PARAMETERIZATION = THETA;
+                      COVERAGE = 0.034; MODEL = NOCOVARIANCES;
+                       DIFFTEST=finaldiff.dat;
+
+
+
+
+
+            OUTPUT: STDYX; TECH4; MODINDICES(ALL);
+
+    MODEL:
+
+               opicint BY opic1-opic3@1;
+                opicslp BY opic1@0 opic2* opic3@1;
+                opicint* opicslp@0;
+                [opicint@0 opicslp*];
+
+                [opic1$1-opic3$1] (othr1);
+                [opic1$2-opic3$2] (othr2);
+                [opic1$3-opic3$3] (othr3);
+                [opic1$4-opic3$4] (othr4);
+
+
+                opic2-opic3 PWITH opic1-opic2(eq);
+
+                intrint BY intr1-intr3@1;
+                intrslp BY intr1@0 intr2@1 intr3*;
+                intrint* intrslp@0;
+                [intrint@0 intrslp*];
+
+                [intr1$1-intr3$1] (ithr1);
+                [intr1$2-intr3$2] (ithr2);
+                [intr1$3-intr3$3] (ithr3);
+                [intr1$4-intr3$4] (ithr4);
+                [intr1$5-intr3$5] (ithr5);
+
+
+
+                importint BY import1-import3@1;
+                importslp BY import1@0 import2@1 import3*;
+                importint* importslp@0;
+                [importint@0 importslp*];
+
+                [import1$1-import3$1] (pthr1);
+                [import1$2-import3$2] (pthr2);
+                [import1$3-import3$3] (pthr3);
+                [import1$4-import3$4] (pthr4);
+                [import1$5-import3$5] (pthr5);
+
+                intrint WITH opicint importint;
+                opicint WITH importint;
+                opic3 WITH intr3;
+
+
+
+
+               import1-import3 PWITH intr1-intr3;
+
+
+
+
+
+
+
+
+
+INPUT READING TERMINATED NORMALLY
+
+
+
+
+SUMMARY OF ANALYSIS
+
+Number of groups                                                 1
+Number of observations                                        1922
+
+Number of dependent variables                                    9
+Number of independent variables                                  0
+Number of continuous latent variables                            6
+
+Observed dependent variables
+
+  Binary and ordered categorical (ordinal)
+   OPIC1       OPIC2       OPIC3       INTR1       INTR2       INTR3
+   IMPORT1     IMPORT2     IMPORT3
+
+Continuous latent variables
+   OPICINT     OPICSLP     INTRINT     INTRSLP     IMPORTIN    IMPORTSL
+
+
+Estimator                                                    WLSMV
+Maximum number of iterations                                  1000
+Convergence criterion                                    0.500D-04
+Maximum number of steepest descent iterations                   20
+Maximum number of iterations for H1                           2000
+Convergence criterion for H1                             0.100D-03
+Parameterization                                             THETA
+Link                                                        PROBIT
+
+Input data file(s)
+  mplus_df_final.csv
+
+Input data format  FREE
+
+
+SUMMARY OF DATA
+
+     Number of missing data patterns            26
+
+
+COVARIANCE COVERAGE OF DATA
+
+Minimum covariance coverage value   0.034
+
+
+     PROPORTION OF DATA PRESENT
+
+
+           Covariance Coverage
+              OPIC1         OPIC2         OPIC3         INTR1         INTR2
+              ________      ________      ________      ________      ________
+ OPIC1          0.415
+ OPIC2          0.036         0.336
+ OPIC3          0.078         0.180         0.517
+ INTR1          0.392         0.036         0.075         0.392
+ INTR2          0.035         0.328         0.174         0.035         0.328
+ INTR3          0.074         0.174         0.492         0.072         0.170
+ IMPORT1        0.399         0.036         0.076         0.392         0.035
+ IMPORT2        0.036         0.328         0.175         0.035         0.328
+ IMPORT3        0.075         0.176         0.498         0.072         0.171
+
+
+           Covariance Coverage
+              INTR3         IMPORT1       IMPORT2       IMPORT3
+              ________      ________      ________      ________
+ INTR3          0.492
+ IMPORT1        0.073         0.399
+ IMPORT2        0.170         0.036         0.328
+ IMPORT3        0.492         0.073         0.172         0.498
+
+
+UNIVARIATE PROPORTIONS AND COUNTS FOR CATEGORICAL VARIABLES
+
+    OPIC1
+      Category 1    0.117           93.000
+      Category 2    0.382          305.000
+      Category 3    0.358          286.000
+      Category 4    0.117           93.000
+      Category 5    0.026           21.000
+    OPIC2
+      Category 1    0.057           37.000
+      Category 2    0.269          174.000
+      Category 3    0.381          246.000
+      Category 4    0.218          141.000
+      Category 5    0.074           48.000
+    OPIC3
+      Category 1    0.015           15.000
+      Category 2    0.095           94.000
+      Category 3    0.256          254.000
+      Category 4    0.366          363.000
+      Category 5    0.269          267.000
+    INTR1
+      Category 1    0.015           11.000
+      Category 2    0.049           37.000
+      Category 3    0.134          101.000
+      Category 4    0.185          139.000
+      Category 5    0.316          238.000
+      Category 6    0.301          227.000
+    INTR2
+      Category 1    0.014            9.000
+      Category 2    0.048           30.000
+      Category 3    0.079           50.000
+      Category 4    0.119           75.000
+      Category 5    0.303          191.000
+      Category 6    0.437          276.000
+    INTR3
+      Category 1    0.023           22.000
+      Category 2    0.076           72.000
+      Category 3    0.092           87.000
+      Category 4    0.179          169.000
+      Category 5    0.279          264.000
+      Category 6    0.351          332.000
+    IMPORT1
+      Category 1    0.010            8.000
+      Category 2    0.023           18.000
+      Category 3    0.043           33.000
+      Category 4    0.094           72.000
+      Category 5    0.195          149.000
+      Category 6    0.634          486.000
+    IMPORT2
+      Category 1    0.003            2.000
+      Category 2    0.016           10.000
+      Category 3    0.030           19.000
+      Category 4    0.055           35.000
+      Category 5    0.171          108.000
+      Category 6    0.724          457.000
+    IMPORT3
+      Category 1    0.017           16.000
+      Category 2    0.023           22.000
+      Category 3    0.033           32.000
+      Category 4    0.081           78.000
+      Category 5    0.169          162.000
+      Category 6    0.676          648.000
+
+
+
+THE MODEL ESTIMATION TERMINATED NORMALLY
+
+
+
+MODEL FIT INFORMATION
+
+Number of Free Parameters                       31
+
+Chi-Square Test of Model Fit
+
+          Value                             70.395*
+          Degrees of Freedom                    47
+          P-Value                           0.0152
+
+Chi-Square Test for Difference Testing
+
+          Value                              8.483*
+          Degrees of Freedom                     8
+          P-Value                           0.3878
+
+*   The chi-square value for MLM, MLMV, MLR, ULSMV, WLSM and WLSMV cannot be used
+    for chi-square difference testing in the regular way.  MLM, MLR and WLSM
+    chi-square difference testing is described on the Mplus website.  MLMV, WLSMV,
+    and ULSMV difference testing is done using the DIFFTEST option.  The DIFFTEST
+    option assumes the models are nested.  The NESTED option can be used to verify
+    that the models are nested.
+
+RMSEA (Root Mean Square Error Of Approximation)
+
+          Estimate                           0.016
+          90 Percent C.I.                    0.007  0.024
+          Probability RMSEA <= .05           1.000
+
+CFI/TLI
+
+          CFI                                0.993
+          TLI                                0.995
+
+Chi-Square Test of Model Fit for the Baseline Model
+
+          Value                           3523.376
+          Degrees of Freedom                    36
+          P-Value                           0.0000
+
+SRMR (Standardized Root Mean Square Residual)
+
+          Value                              0.039
+
+Optimum Function Value for Weighted Least-Squares Estimator
+
+          Value                     0.15090602D-01
+
+
+
+MODEL RESULTS
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+ OPICINT  BY
+    OPIC1              1.000      0.000    999.000    999.000
+    OPIC2              1.000      0.000    999.000    999.000
+    OPIC3              1.000      0.000    999.000    999.000
+
+ OPICSLP  BY
+    OPIC1              0.000      0.000    999.000    999.000
+    OPIC2              0.355      0.036      9.891      0.000
+    OPIC3              1.000      0.000    999.000    999.000
+
+ INTRINT  BY
+    INTR1              1.000      0.000    999.000    999.000
+    INTR2              1.000      0.000    999.000    999.000
+    INTR3              1.000      0.000    999.000    999.000
+
+ INTRSLP  BY
+    INTR1              0.000      0.000    999.000    999.000
+    INTR2              1.000      0.000    999.000    999.000
+    INTR3              0.045      0.186      0.245      0.806
+
+ IMPORTIN BY
+    IMPORT1            1.000      0.000    999.000    999.000
+    IMPORT2            1.000      0.000    999.000    999.000
+    IMPORT3            1.000      0.000    999.000    999.000
+
+ IMPORTSL BY
+    IMPORT1            0.000      0.000    999.000    999.000
+    IMPORT2            1.000      0.000    999.000    999.000
+    IMPORT3            0.182      0.202      0.900      0.368
+
+ INTRINT  WITH
+    OPICINT            0.510      0.091      5.607      0.000
+    IMPORTINT          1.548      0.198      7.837      0.000
+
+ OPICINT  WITH
+    IMPORTINT          0.649      0.105      6.193      0.000
+
+ OPIC3    WITH
+    OPIC2              0.318      0.106      3.000      0.003
+    INTR3              0.373      0.091      4.112      0.000
+
+ OPIC2    WITH
+    OPIC1              0.318      0.106      3.000      0.003
+
+ IMPORT1  WITH
+    INTR1              0.297      0.110      2.704      0.007
+
+ IMPORT2  WITH
+    INTR2              0.452      0.093      4.835      0.000
+
+ IMPORT3  WITH
+    INTR3              0.611      0.080      7.658      0.000
+
+ Means
+    OPICINT            0.000      0.000    999.000    999.000
+    OPICSLP            1.851      0.145     12.773      0.000
+    INTRINT            0.000      0.000    999.000    999.000
+    INTRSLP            0.448      0.100      4.467      0.000
+    IMPORTINT          0.000      0.000    999.000    999.000
+    IMPORTSLP          0.458      0.121      3.781      0.000
+
+ Thresholds
+    OPIC1$1           -1.621      0.138    -11.724      0.000
+    OPIC1$2            0.022      0.059      0.364      0.716
+    OPIC1$3            1.429      0.117     12.214      0.000
+    OPIC1$4            2.753      0.206     13.358      0.000
+    OPIC2$1           -1.621      0.138    -11.724      0.000
+    OPIC2$2            0.022      0.059      0.364      0.716
+    OPIC2$3            1.429      0.117     12.214      0.000
+    OPIC2$4            2.753      0.206     13.358      0.000
+    OPIC3$1           -1.621      0.138    -11.724      0.000
+    OPIC3$2            0.022      0.059      0.364      0.716
+    OPIC3$3            1.429      0.117     12.214      0.000
+    OPIC3$4            2.753      0.206     13.358      0.000
+    INTR1$1           -3.430      0.159    -21.611      0.000
+    INTR1$2           -2.284      0.108    -21.055      0.000
+    INTR1$3           -1.433      0.088    -16.317      0.000
+    INTR1$4           -0.556      0.074     -7.517      0.000
+    INTR1$5            0.748      0.074     10.145      0.000
+    INTR2$1           -3.430      0.159    -21.611      0.000
+    INTR2$2           -2.284      0.108    -21.055      0.000
+    INTR2$3           -1.433      0.088    -16.317      0.000
+    INTR2$4           -0.556      0.074     -7.517      0.000
+    INTR2$5            0.748      0.074     10.145      0.000
+    INTR3$1           -3.430      0.159    -21.611      0.000
+    INTR3$2           -2.284      0.108    -21.055      0.000
+    INTR3$3           -1.433      0.088    -16.317      0.000
+    INTR3$4           -0.556      0.074     -7.517      0.000
+    INTR3$5            0.748      0.074     10.145      0.000
+    IMPORT1$1         -3.857      0.226    -17.066      0.000
+    IMPORT1$2         -3.105      0.183    -16.952      0.000
+    IMPORT1$3         -2.477      0.154    -16.073      0.000
+    IMPORT1$4         -1.702      0.122    -13.898      0.000
+    IMPORT1$5         -0.648      0.091     -7.114      0.000
+    IMPORT2$1         -3.857      0.226    -17.066      0.000
+    IMPORT2$2         -3.105      0.183    -16.952      0.000
+    IMPORT2$3         -2.477      0.154    -16.073      0.000
+    IMPORT2$4         -1.702      0.122    -13.898      0.000
+    IMPORT2$5         -0.648      0.091     -7.114      0.000
+    IMPORT3$1         -3.857      0.226    -17.066      0.000
+    IMPORT3$2         -3.105      0.183    -16.952      0.000
+    IMPORT3$3         -2.477      0.154    -16.073      0.000
+    IMPORT3$4         -1.702      0.122    -13.898      0.000
+    IMPORT3$5         -0.648      0.091     -7.114      0.000
+
+ Variances
+    OPICINT            1.096      0.305      3.595      0.000
+    OPICSLP            0.000      0.000    999.000    999.000
+    INTRINT            1.877      0.216      8.699      0.000
+    INTRSLP            0.000      0.000    999.000    999.000
+    IMPORTINT          2.087      0.321      6.497      0.000
+    IMPORTSLP          0.000      0.000    999.000    999.000
+
+
+QUALITY OF NUMERICAL RESULTS
+
+     Condition Number for the Information Matrix              0.261E-02
+       (ratio of smallest to largest eigenvalue)
+
+
+STANDARDIZED MODEL RESULTS
+
+
+STDYX Standardization
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+ OPICINT  BY
+    OPIC1              0.723      0.048     15.070      0.000
+    OPIC2              0.723      0.048     15.070      0.000
+    OPIC3              0.723      0.048     15.070      0.000
+
+ OPICSLP  BY
+    OPIC1            999.000    999.000    999.000    999.000
+    OPIC2            999.000    999.000    999.000    999.000
+    OPIC3            999.000    999.000    999.000    999.000
+
+ INTRINT  BY
+    INTR1              0.808      0.016     50.054      0.000
+    INTR2              0.808      0.016     50.054      0.000
+    INTR3              0.808      0.016     50.054      0.000
+
+ INTRSLP  BY
+    INTR1            999.000    999.000    999.000    999.000
+    INTR2            999.000    999.000    999.000    999.000
+    INTR3            999.000    999.000    999.000    999.000
+
+ IMPORTIN BY
+    IMPORT1            0.822      0.021     40.107      0.000
+    IMPORT2            0.822      0.021     40.107      0.000
+    IMPORT3            0.822      0.021     40.107      0.000
+
+ IMPORTSL BY
+    IMPORT1          999.000    999.000    999.000    999.000
+    IMPORT2          999.000    999.000    999.000    999.000
+    IMPORT3          999.000    999.000    999.000    999.000
+
+ INTRINT  WITH
+    OPICINT            0.355      0.054      6.525      0.000
+    IMPORTINT          0.782      0.037     21.199      0.000
+
+ OPICINT  WITH
+    IMPORTINT          0.429      0.054      8.013      0.000
+
+ OPIC3    WITH
+    OPIC2              0.318      0.106      3.000      0.003
+    INTR3              0.373      0.091      4.112      0.000
+
+ OPIC2    WITH
+    OPIC1              0.318      0.106      3.000      0.003
+
+ IMPORT1  WITH
+    INTR1              0.297      0.110      2.704      0.007
+
+ IMPORT2  WITH
+    INTR2              0.452      0.093      4.835      0.000
+
+ IMPORT3  WITH
+    INTR3              0.611      0.080      7.658      0.000
+
+ Means
+    OPICINT            0.000      0.000    999.000    999.000
+    OPICSLP          999.000    999.000    999.000    999.000
+    INTRINT            0.000      0.000    999.000    999.000
+    INTRSLP          999.000    999.000    999.000    999.000
+    IMPORTINT          0.000      0.000    999.000    999.000
+    IMPORTSLP        999.000    999.000    999.000    999.000
+
+ Thresholds
+    OPIC1$1           -1.120      0.050    -22.221      0.000
+    OPIC1$2            0.015      0.041      0.364      0.716
+    OPIC1$3            0.987      0.044     22.208      0.000
+    OPIC1$4            1.902      0.052     36.298      0.000
+    OPIC2$1           -1.120      0.050    -22.221      0.000
+    OPIC2$2            0.015      0.041      0.364      0.716
+    OPIC2$3            0.987      0.044     22.208      0.000
+    OPIC2$4            1.902      0.052     36.298      0.000
+    OPIC3$1           -1.120      0.050    -22.221      0.000
+    OPIC3$2            0.015      0.041      0.364      0.716
+    OPIC3$3            0.987      0.044     22.208      0.000
+    OPIC3$4            1.902      0.052     36.298      0.000
+    INTR1$1           -2.023      0.074    -27.475      0.000
+    INTR1$2           -1.346      0.051    -26.523      0.000
+    INTR1$3           -0.845      0.044    -19.176      0.000
+    INTR1$4           -0.328      0.042     -7.846      0.000
+    INTR1$5            0.441      0.043     10.382      0.000
+    INTR2$1           -2.023      0.074    -27.475      0.000
+    INTR2$2           -1.346      0.051    -26.523      0.000
+    INTR2$3           -0.845      0.044    -19.176      0.000
+    INTR2$4           -0.328      0.042     -7.846      0.000
+    INTR2$5            0.441      0.043     10.382      0.000
+    INTR3$1           -2.023      0.074    -27.475      0.000
+    INTR3$2           -1.346      0.051    -26.523      0.000
+    INTR3$3           -0.845      0.044    -19.176      0.000
+    INTR3$4           -0.328      0.042     -7.846      0.000
+    INTR3$5            0.441      0.043     10.382      0.000
+    IMPORT1$1         -2.195      0.088    -24.874      0.000
+    IMPORT1$2         -1.767      0.065    -27.234      0.000
+    IMPORT1$3         -1.410      0.054    -26.078      0.000
+    IMPORT1$4         -0.968      0.048    -20.244      0.000
+    IMPORT1$5         -0.369      0.046     -8.088      0.000
+    IMPORT2$1         -2.195      0.088    -24.874      0.000
+    IMPORT2$2         -1.767      0.065    -27.234      0.000
+    IMPORT2$3         -1.410      0.054    -26.078      0.000
+    IMPORT2$4         -0.968      0.048    -20.244      0.000
+    IMPORT2$5         -0.369      0.046     -8.088      0.000
+    IMPORT3$1         -2.195      0.088    -24.874      0.000
+    IMPORT3$2         -1.767      0.065    -27.234      0.000
+    IMPORT3$3         -1.410      0.054    -26.078      0.000
+    IMPORT3$4         -0.968      0.048    -20.244      0.000
+    IMPORT3$5         -0.369      0.046     -8.088      0.000
+
+ Variances
+    OPICINT            1.000      0.000    999.000    999.000
+    OPICSLP          999.000    999.000    999.000    999.000
+    INTRINT            1.000      0.000    999.000    999.000
+    INTRSLP          999.000    999.000    999.000    999.000
+    IMPORTINT          1.000      0.000    999.000    999.000
+    IMPORTSLP        999.000    999.000    999.000    999.000
+
+
+R-SQUARE
+
+    Observed                                        Two-Tailed     Scale
+    Variable        Estimate       S.E.  Est./S.E.    P-Value     Factors
+
+    OPIC1              0.523      0.069      7.535      0.000      0.691
+    OPIC2              0.523      0.069      7.535      0.000      0.691
+    OPIC3              0.523      0.069      7.535      0.000      0.691
+    INTR1              0.652      0.026     25.027      0.000      0.590
+    INTR2              0.652      0.026     25.027      0.000      0.590
+    INTR3              0.652      0.026     25.027      0.000      0.590
+    IMPORT1            0.676      0.034     20.054      0.000      0.569
+    IMPORT2            0.676      0.034     20.054      0.000      0.569
+    IMPORT3            0.676      0.034     20.054      0.000      0.569
+
+
+MODEL MODIFICATION INDICES
+
+Minimum M.I. value for printing the modification index    10.000
+
+                                   M.I.     E.P.C.  Std E.P.C.  StdYX E.P.C.
+
+ON/BY Statements
+
+INTR1    ON INTRINT  /
+INTRINT  BY INTR1                 10.441    -0.200     -0.274       -0.161
+IMPORT1  ON OPICSLP  /
+OPICSLP  BY IMPORT1              999.000     0.000    999.000      999.000
+IMPORT3  ON OPICSLP  /
+OPICSLP  BY IMPORT3              999.000     0.000    999.000      999.000
+
+ON Statements
+
+INTR1    ON INTR1                 13.361    -0.158     -0.158       -0.158
+INTR1    ON IMPORT1               12.136    -0.213     -0.213       -0.221
+
+Variances/Residual Variances
+
+INTR1                             10.762    -0.663     -0.663       -0.230
+
+Means/Intercepts/Thresholds
+
+[ IMPORT3  ]                     999.000     0.000      0.000        0.000
+[ INTR1$2  ]                      10.434    -0.301     -0.301       -0.178
+
+
+TECHNICAL 4 OUTPUT
+
+
+     ESTIMATES DERIVED FROM THE MODEL
+
+
+           ESTIMATED MEANS FOR THE LATENT VARIABLES
+              OPICINT       OPICSLP       INTRINT       INTRSLP       IMPORTIN
+              ________      ________      ________      ________      ________
+                0.000         1.851         0.000         0.448         0.000
+
+
+           ESTIMATED MEANS FOR THE LATENT VARIABLES
+              IMPORTSL      OPIC1         OPIC2         OPIC3         INTR1
+              ________      ________      ________      ________      ________
+                0.458         0.000         0.658         1.851         0.000
+
+
+           ESTIMATED MEANS FOR THE LATENT VARIABLES
+              INTR2         INTR3         IMPORT1       IMPORT2       IMPORT3
+              ________      ________      ________      ________      ________
+                0.448         0.020         0.000         0.458         0.083
+
+
+           ESTIMATED COVARIANCE MATRIX FOR THE LATENT VARIABLES
+              OPICINT       OPICSLP       INTRINT       INTRSLP       IMPORTIN
+              ________      ________      ________      ________      ________
+ OPICINT        1.096
+ OPICSLP        0.000         0.000
+ INTRINT        0.510         0.000         1.877
+ INTRSLP        0.000         0.000         0.000         0.000
+ IMPORTIN       0.649         0.000         1.548         0.000         2.087
+ IMPORTSL       0.000         0.000         0.000         0.000         0.000
+ OPIC1          1.096         0.000         0.510         0.000         0.649
+ OPIC2          1.096         0.000         0.510         0.000         0.649
+ OPIC3          1.096         0.000         0.510         0.000         0.649
+ INTR1          0.510         0.000         1.877         0.000         1.548
+ INTR2          0.510         0.000         1.877         0.000         1.548
+ INTR3          0.510         0.000         1.877         0.000         1.548
+ IMPORT1        0.649         0.000         1.548         0.000         2.087
+ IMPORT2        0.649         0.000         1.548         0.000         2.087
+ IMPORT3        0.649         0.000         1.548         0.000         2.087
+
+
+           ESTIMATED COVARIANCE MATRIX FOR THE LATENT VARIABLES
+              IMPORTSL      OPIC1         OPIC2         OPIC3         INTR1
+              ________      ________      ________      ________      ________
+ IMPORTSL       0.000
+ OPIC1          0.000         2.096
+ OPIC2          0.000         1.413         2.096
+ OPIC3          0.000         1.096         1.413         2.096
+ INTR1          0.000         0.510         0.510         0.510         2.877
+ INTR2          0.000         0.510         0.510         0.510         1.877
+ INTR3          0.000         0.510         0.510         0.883         1.877
+ IMPORT1        0.000         0.649         0.649         0.649         1.845
+ IMPORT2        0.000         0.649         0.649         0.649         1.548
+ IMPORT3        0.000         0.649         0.649         0.649         1.548
+
+
+           ESTIMATED COVARIANCE MATRIX FOR THE LATENT VARIABLES
+              INTR2         INTR3         IMPORT1       IMPORT2       IMPORT3
+              ________      ________      ________      ________      ________
+ INTR2          2.877
+ INTR3          1.877         2.877
+ IMPORT1        1.548         1.548         3.087
+ IMPORT2        2.000         1.548         2.087         3.087
+ IMPORT3        1.548         2.159         2.087         2.087         3.087
+
+
+           ESTIMATED CORRELATION MATRIX FOR THE LATENT VARIABLES
+              OPICINT       OPICSLP       INTRINT       INTRSLP       IMPORTIN
+              ________      ________      ________      ________      ________
+ OPICINT        1.000
+ OPICSLP      999.000       999.000
+ INTRINT        0.355       999.000         1.000
+ INTRSLP      999.000       999.000       999.000       999.000
+ IMPORTIN       0.429       999.000         0.782       999.000         1.000
+ IMPORTSL     999.000       999.000       999.000       999.000       999.000
+ OPIC1          0.723       999.000         0.257       999.000         0.310
+ OPIC2          0.723       999.000         0.257       999.000         0.310
+ OPIC3          0.723       999.000         0.257       999.000         0.310
+ INTR1          0.287       999.000         0.808       999.000         0.632
+ INTR2          0.287       999.000         0.808       999.000         0.632
+ INTR3          0.287       999.000         0.808       999.000         0.632
+ IMPORT1        0.353       999.000         0.643       999.000         0.822
+ IMPORT2        0.353       999.000         0.643       999.000         0.822
+ IMPORT3        0.353       999.000         0.643       999.000         0.822
+
+
+           ESTIMATED CORRELATION MATRIX FOR THE LATENT VARIABLES
+              IMPORTSL      OPIC1         OPIC2         OPIC3         INTR1
+              ________      ________      ________      ________      ________
+ IMPORTSL     999.000
+ OPIC1        999.000         1.000
+ OPIC2        999.000         0.674         1.000
+ OPIC3        999.000         0.523         0.674         1.000
+ INTR1        999.000         0.208         0.208         0.208         1.000
+ INTR2        999.000         0.208         0.208         0.208         0.652
+ INTR3        999.000         0.208         0.208         0.360         0.652
+ IMPORT1      999.000         0.255         0.255         0.255         0.619
+ IMPORT2      999.000         0.255         0.255         0.255         0.519
+ IMPORT3      999.000         0.255         0.255         0.255         0.519
+
+
+           ESTIMATED CORRELATION MATRIX FOR THE LATENT VARIABLES
+              INTR2         INTR3         IMPORT1       IMPORT2       IMPORT3
+              ________      ________      ________      ________      ________
+ INTR2          1.000
+ INTR3          0.652         1.000
+ IMPORT1        0.519         0.519         1.000
+ IMPORT2        0.671         0.519         0.676         1.000
+ IMPORT3        0.519         0.724         0.676         0.676         1.000
+
+
+     ESTIMATES DERIVED FROM THE MODEL
+
+
+           S.E. FOR ESTIMATED MEANS FOR THE LATENT VARIABLES
+              OPICINT       OPICSLP       INTRINT       INTRSLP       IMPORTIN
+              ________      ________      ________      ________      ________
+                0.000         0.145         0.000         0.100         0.000
+
+
+           S.E. FOR ESTIMATED MEANS FOR THE LATENT VARIABLES
+              IMPORTSL      OPIC1         OPIC2         OPIC3         INTR1
+              ________      ________      ________      ________      ________
+                0.121         0.000         0.090         0.145         0.000
+
+
+           S.E. FOR ESTIMATED MEANS FOR THE LATENT VARIABLES
+              INTR2         INTR3         IMPORT1       IMPORT2       IMPORT3
+              ________      ________      ________      ________      ________
+                0.100         0.086         0.000         0.121         0.102
+
+
+           EST./S.E. FOR ESTIMATED MEANS FOR THE LATENT VARIABLES
+              OPICINT       OPICSLP       INTRINT       INTRSLP       IMPORTIN
+              ________      ________      ________      ________      ________
+                0.000        12.773         0.000         4.467         0.000
+
+
+           EST./S.E. FOR ESTIMATED MEANS FOR THE LATENT VARIABLES
+              IMPORTSL      OPIC1         OPIC2         OPIC3         INTR1
+              ________      ________      ________      ________      ________
+                3.781         0.000         7.317        12.773         0.000
+
+
+           EST./S.E. FOR ESTIMATED MEANS FOR THE LATENT VARIABLES
+              INTR2         INTR3         IMPORT1       IMPORT2       IMPORT3
+              ________      ________      ________      ________      ________
+                4.467         0.238         0.000         3.781         0.815
+
+
+           TWO-TAILED P-VALUE FOR ESTIMATED MEANS FOR THE LATENT VARIABLES
+              OPICINT       OPICSLP       INTRINT       INTRSLP       IMPORTIN
+              ________      ________      ________      ________      ________
+                1.000         0.000         1.000         0.000         1.000
+
+
+           TWO-TAILED P-VALUE FOR ESTIMATED MEANS FOR THE LATENT VARIABLES
+              IMPORTSL      OPIC1         OPIC2         OPIC3         INTR1
+              ________      ________      ________      ________      ________
+                0.000         1.000         0.000         0.000         1.000
+
+
+           TWO-TAILED P-VALUE FOR ESTIMATED MEANS FOR THE LATENT VARIABLES
+              INTR2         INTR3         IMPORT1       IMPORT2       IMPORT3
+              ________      ________      ________      ________      ________
+                0.000         0.812         1.000         0.000         0.415
+
+
+           S.E. FOR ESTIMATED COVARIANCE MATRIX FOR THE LATENT VARIABLES
+              OPICINT       OPICSLP       INTRINT       INTRSLP       IMPORTIN
+              ________      ________      ________      ________      ________
+ OPICINT        0.305
+ OPICSLP        0.000         0.000
+ INTRINT        0.091         0.000         0.216
+ INTRSLP        0.000         0.000         0.000         0.000
+ IMPORTIN       0.105         0.000         0.198         0.000         0.321
+ IMPORTSL       0.000         0.000         0.000         0.000         0.000
+ OPIC1          0.305         0.000         0.091         0.000         0.105
+ OPIC2          0.305         0.000         0.091         0.000         0.105
+ OPIC3          0.305         0.000         0.091         0.000         0.105
+ INTR1          0.091         0.000         0.216         0.000         0.198
+ INTR2          0.091         0.000         0.216         0.000         0.198
+ INTR3          0.091         0.000         0.216         0.000         0.198
+ IMPORT1        0.105         0.000         0.198         0.000         0.321
+ IMPORT2        0.105         0.000         0.198         0.000         0.321
+ IMPORT3        0.105         0.000         0.198         0.000         0.321
+
+
+           S.E. FOR ESTIMATED COVARIANCE MATRIX FOR THE LATENT VARIABLES
+              IMPORTSL      OPIC1         OPIC2         OPIC3         INTR1
+              ________      ________      ________      ________      ________
+ IMPORTSL       0.000
+ OPIC1          0.000         0.305
+ OPIC2          0.000         0.222         0.305
+ OPIC3          0.000         0.305         0.222         0.305
+ INTR1          0.000         0.091         0.091         0.091         0.216
+ INTR2          0.000         0.091         0.091         0.091         0.216
+ INTR3          0.000         0.091         0.091         0.111         0.216
+ IMPORT1        0.000         0.105         0.105         0.105         0.161
+ IMPORT2        0.000         0.105         0.105         0.105         0.198
+ IMPORT3        0.000         0.105         0.105         0.105         0.198
+
+
+           S.E. FOR ESTIMATED COVARIANCE MATRIX FOR THE LATENT VARIABLES
+              INTR2         INTR3         IMPORT1       IMPORT2       IMPORT3
+              ________      ________      ________      ________      ________
+ INTR2          0.216
+ INTR3          0.216         0.216
+ IMPORT1        0.198         0.198         0.321
+ IMPORT2        0.183         0.198         0.321         0.321
+ IMPORT3        0.198         0.178         0.321         0.321         0.321
+
+
+           EST./S.E. FOR ESTIMATED COVARIANCE MATRIX FOR THE LATENT VARIABLES
+              OPICINT       OPICSLP       INTRINT       INTRSLP       IMPORTIN
+              ________      ________      ________      ________      ________
+ OPICINT        3.595
+ OPICSLP        0.000         0.000
+ INTRINT        5.607         0.000         8.699
+ INTRSLP        0.000         0.000         0.000         0.000
+ IMPORTIN       6.193         0.000         7.837         0.000         6.497
+ IMPORTSL       0.000         0.000         0.000         0.000         0.000
+ OPIC1          3.595         0.000         5.607         0.000         6.193
+ OPIC2          3.595         0.000         5.607         0.000         6.193
+ OPIC3          3.595         0.000         5.607         0.000         6.193
+ INTR1          5.607         0.000         8.699         0.000         7.837
+ INTR2          5.607         0.000         8.699         0.000         7.837
+ INTR3          5.607         0.000         8.699         0.000         7.837
+ IMPORT1        6.193         0.000         7.837         0.000         6.497
+ IMPORT2        6.193         0.000         7.837         0.000         6.497
+ IMPORT3        6.193         0.000         7.837         0.000         6.497
+
+
+           EST./S.E. FOR ESTIMATED COVARIANCE MATRIX FOR THE LATENT VARIABLES
+              IMPORTSL      OPIC1         OPIC2         OPIC3         INTR1
+              ________      ________      ________      ________      ________
+ IMPORTSL       0.000
+ OPIC1          0.000         6.877
+ OPIC2          0.000         6.376         6.877
+ OPIC3          0.000         3.595         6.376         6.877
+ INTR1          0.000         5.607         5.607         5.607        13.334
+ INTR2          0.000         5.607         5.607         5.607         8.699
+ INTR3          0.000         5.607         5.607         7.929         8.699
+ IMPORT1        0.000         6.193         6.193         6.193        11.436
+ IMPORT2        0.000         6.193         6.193         6.193         7.837
+ IMPORT3        0.000         6.193         6.193         6.193         7.837
+
+
+           EST./S.E. FOR ESTIMATED COVARIANCE MATRIX FOR THE LATENT VARIABLES
+              INTR2         INTR3         IMPORT1       IMPORT2       IMPORT3
+              ________      ________      ________      ________      ________
+ INTR2         13.334
+ INTR3          8.699        13.334
+ IMPORT1        7.837         7.837         9.610
+ IMPORT2       10.950         7.837         6.497         9.610
+ IMPORT3        7.837        12.131         6.497         6.497         9.610
+
+
+           TWO-TAILED P-VALUE FOR ESTIMATED COVARIANCE MATRIX FOR THE LATENT VARIABLES
+              OPICINT       OPICSLP       INTRINT       INTRSLP       IMPORTIN
+              ________      ________      ________      ________      ________
+ OPICINT        0.000
+ OPICSLP        1.000         1.000
+ INTRINT        0.000         1.000         0.000
+ INTRSLP        1.000         1.000         1.000         1.000
+ IMPORTIN       0.000         1.000         0.000         1.000         0.000
+ IMPORTSL       1.000         1.000         1.000         1.000         1.000
+ OPIC1          0.000         1.000         0.000         1.000         0.000
+ OPIC2          0.000         1.000         0.000         1.000         0.000
+ OPIC3          0.000         1.000         0.000         1.000         0.000
+ INTR1          0.000         1.000         0.000         1.000         0.000
+ INTR2          0.000         1.000         0.000         1.000         0.000
+ INTR3          0.000         1.000         0.000         1.000         0.000
+ IMPORT1        0.000         1.000         0.000         1.000         0.000
+ IMPORT2        0.000         1.000         0.000         1.000         0.000
+ IMPORT3        0.000         1.000         0.000         1.000         0.000
+
+
+           TWO-TAILED P-VALUE FOR ESTIMATED COVARIANCE MATRIX FOR THE LATENT VARIABLES
+              IMPORTSL      OPIC1         OPIC2         OPIC3         INTR1
+              ________      ________      ________      ________      ________
+ IMPORTSL       1.000
+ OPIC1          1.000         0.000
+ OPIC2          1.000         0.000         0.000
+ OPIC3          1.000         0.000         0.000         0.000
+ INTR1          1.000         0.000         0.000         0.000         0.000
+ INTR2          1.000         0.000         0.000         0.000         0.000
+ INTR3          1.000         0.000         0.000         0.000         0.000
+ IMPORT1        1.000         0.000         0.000         0.000         0.000
+ IMPORT2        1.000         0.000         0.000         0.000         0.000
+ IMPORT3        1.000         0.000         0.000         0.000         0.000
+
+
+           TWO-TAILED P-VALUE FOR ESTIMATED COVARIANCE MATRIX FOR THE LATENT VARIABLES
+              INTR2         INTR3         IMPORT1       IMPORT2       IMPORT3
+              ________      ________      ________      ________      ________
+ INTR2          0.000
+ INTR3          0.000         0.000
+ IMPORT1        0.000         0.000         0.000
+ IMPORT2        0.000         0.000         0.000         0.000
+ IMPORT3        0.000         0.000         0.000         0.000         0.000
+
+
+           S.E. FOR ESTIMATED CORRELATION MATRIX FOR THE LATENT VARIABLES
+              OPICINT       OPICSLP       INTRINT       INTRSLP       IMPORTIN
+              ________      ________      ________      ________      ________
+ OPICINT        0.000
+ OPICSLP      999.000         0.000
+ INTRINT        0.054       999.000         0.000
+ INTRSLP      999.000       999.000       999.000         0.000
+ IMPORTIN       0.054       999.000         0.037       999.000         0.000
+ IMPORTSL     999.000       999.000       999.000       999.000       999.000
+ OPIC1          0.048       999.000         0.037       999.000         0.034
+ OPIC2          0.048       999.000         0.037       999.000         0.034
+ OPIC3          0.048       999.000         0.037       999.000         0.034
+ INTR1          0.044       999.000         0.016       999.000         0.036
+ INTR2          0.044       999.000         0.016       999.000         0.036
+ INTR3          0.044       999.000         0.016       999.000         0.036
+ IMPORT1        0.045       999.000         0.035       999.000         0.021
+ IMPORT2        0.045       999.000         0.035       999.000         0.021
+ IMPORT3        0.045       999.000         0.035       999.000         0.021
+
+
+           S.E. FOR ESTIMATED CORRELATION MATRIX FOR THE LATENT VARIABLES
+              IMPORTSL      OPIC1         OPIC2         OPIC3         INTR1
+              ________      ________      ________      ________      ________
+ IMPORTSL       0.000
+ OPIC1        999.000         0.000
+ OPIC2        999.000         0.027         0.000
+ OPIC3        999.000         0.069         0.027         0.000
+ INTR1        999.000         0.030         0.030         0.030         0.000
+ INTR2        999.000         0.030         0.030         0.030         0.026
+ INTR3        999.000         0.030         0.030         0.032         0.026
+ IMPORT1      999.000         0.029         0.029         0.029         0.028
+ IMPORT2      999.000         0.029         0.029         0.029         0.034
+ IMPORT3      999.000         0.029         0.029         0.029         0.034
+
+
+           S.E. FOR ESTIMATED CORRELATION MATRIX FOR THE LATENT VARIABLES
+              INTR2         INTR3         IMPORT1       IMPORT2       IMPORT3
+              ________      ________      ________      ________      ________
+ INTR2          0.000
+ INTR3          0.026         0.000
+ IMPORT1        0.034         0.034         0.000
+ IMPORT2        0.028         0.034         0.034         0.000
+ IMPORT3        0.034         0.021         0.034         0.034         0.000
+
+
+           EST./S.E. FOR ESTIMATED CORRELATION MATRIX FOR THE LATENT VARIABLES
+              OPICINT       OPICSLP       INTRINT       INTRSLP       IMPORTIN
+              ________      ________      ________      ________      ________
+ OPICINT      999.000
+ OPICSLP        1.000       999.000
+ INTRINT        6.525         1.000       999.000
+ INTRSLP        1.000         1.000         1.000       999.000
+ IMPORTIN       8.013         1.000        21.199         1.000       999.000
+ IMPORTSL       1.000         1.000         1.000         1.000         1.000
+ OPIC1         15.070         1.000         6.999         1.000         9.124
+ OPIC2         15.070         1.000         6.999         1.000         9.124
+ OPIC3         15.070         1.000         6.999         1.000         9.124
+ INTR1          6.459         1.000        50.054         1.000        17.544
+ INTR2          6.459         1.000        50.054         1.000        17.544
+ INTR3          6.459         1.000        50.054         1.000        17.544
+ IMPORT1        7.849         1.000        18.134         1.000        40.107
+ IMPORT2        7.849         1.000        18.134         1.000        40.107
+ IMPORT3        7.849         1.000        18.134         1.000        40.107
+
+
+           EST./S.E. FOR ESTIMATED CORRELATION MATRIX FOR THE LATENT VARIABLES
+              IMPORTSL      OPIC1         OPIC2         OPIC3         INTR1
+              ________      ________      ________      ________      ________
+ IMPORTSL     999.000
+ OPIC1          1.000       999.000
+ OPIC2          1.000        25.146       999.000
+ OPIC3          1.000         7.535        25.146       999.000
+ INTR1          1.000         6.888         6.888         6.888       999.000
+ INTR2          1.000         6.888         6.888         6.888        25.027
+ INTR3          1.000         6.888         6.888        11.332        25.027
+ IMPORT1        1.000         8.787         8.787         8.787        21.895
+ IMPORT2        1.000         8.787         8.787         8.787        15.182
+ IMPORT3        1.000         8.787         8.787         8.787        15.182
+
+
+           EST./S.E. FOR ESTIMATED CORRELATION MATRIX FOR THE LATENT VARIABLES
+              INTR2         INTR3         IMPORT1       IMPORT2       IMPORT3
+              ________      ________      ________      ________      ________
+ INTR2        999.000
+ INTR3         25.027       999.000
+ IMPORT1       15.182        15.182       999.000
+ IMPORT2       24.277        15.182        20.054       999.000
+ IMPORT3       15.182        33.966        20.054        20.054       999.000
+
+
+           TWO-TAILED P-VALUE FOR ESTIMATED CORRELATION MATRIX FOR THE LATENT VARIABLES
+              OPICINT       OPICSLP       INTRINT       INTRSLP       IMPORTIN
+              ________      ________      ________      ________      ________
+ OPICINT        0.000
+ OPICSLP        0.317         0.000
+ INTRINT        0.000         0.317         0.000
+ INTRSLP        0.317         0.317         0.317         0.000
+ IMPORTIN       0.000         0.317         0.000         0.317         0.000
+ IMPORTSL       0.317         0.317         0.317         0.317         0.317
+ OPIC1          0.000         0.317         0.000         0.317         0.000
+ OPIC2          0.000         0.317         0.000         0.317         0.000
+ OPIC3          0.000         0.317         0.000         0.317         0.000
+ INTR1          0.000         0.317         0.000         0.317         0.000
+ INTR2          0.000         0.317         0.000         0.317         0.000
+ INTR3          0.000         0.317         0.000         0.317         0.000
+ IMPORT1        0.000         0.317         0.000         0.317         0.000
+ IMPORT2        0.000         0.317         0.000         0.317         0.000
+ IMPORT3        0.000         0.317         0.000         0.317         0.000
+
+
+           TWO-TAILED P-VALUE FOR ESTIMATED CORRELATION MATRIX FOR THE LATENT VARIABLES
+              IMPORTSL      OPIC1         OPIC2         OPIC3         INTR1
+              ________      ________      ________      ________      ________
+ IMPORTSL       0.000
+ OPIC1          0.317         0.000
+ OPIC2          0.317         0.000         0.000
+ OPIC3          0.317         0.000         0.000         0.000
+ INTR1          0.317         0.000         0.000         0.000         0.000
+ INTR2          0.317         0.000         0.000         0.000         0.000
+ INTR3          0.317         0.000         0.000         0.000         0.000
+ IMPORT1        0.317         0.000         0.000         0.000         0.000
+ IMPORT2        0.317         0.000         0.000         0.000         0.000
+ IMPORT3        0.317         0.000         0.000         0.000         0.000
+
+
+           TWO-TAILED P-VALUE FOR ESTIMATED CORRELATION MATRIX FOR THE LATENT VARIABLES
+              INTR2         INTR3         IMPORT1       IMPORT2       IMPORT3
+              ________      ________      ________      ________      ________
+ INTR2          0.000
+ INTR3          0.000         0.000
+ IMPORT1        0.000         0.000         0.000
+ IMPORT2        0.000         0.000         0.000         0.000
+ IMPORT3        0.000         0.000         0.000         0.000         0.000
+
+
+DIAGRAM INFORMATION
+
+  Use View Diagram under the Diagram menu in the Mplus Editor to view the diagram.
+  If running Mplus from the Mplus Diagrammer, the diagram opens automatically.
+
+  Diagram output
+    h:\modfit1.dgm
+
+     Beginning Time:  03:22:41
+        Ending Time:  03:23:31
+       Elapsed Time:  00:00:50
+
+
+
+MUTHEN & MUTHEN
+3463 Stoner Ave.
+Los Angeles, CA  90066
+
+Tel: (310) 391-9971
+Fax: (310) 391-8971
+Web: www.StatModel.com
+Support: Support@StatModel.com
+
+Copyright (c) 1998-2022 Muthen & Muthen
